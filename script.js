@@ -1,4 +1,7 @@
 const sliders = document.querySelector(".sliders");
+const seeMoreBtn = document.getElementById("btn-see-more");
+const allDescription = document.querySelectorAll(".testimonial-description p");
+console.log(allDescription);
 let isDragging = false;
 let startPos = 0;
 let startX;
@@ -103,3 +106,31 @@ sliders.addEventListener("mouseleave", startAutoSlide);
 
 // Start auto-slide on page load
 startAutoSlide();
+
+for (const des of allDescription) {
+  const isLong = des.innerHTML.length > 400;
+  console.log(isLong);
+  if (isLong) {
+    seeMoreBtn.style.display = "inline";
+  }
+  seeMoreBtn.innerText = !(des.innerText.toString().length > 400 == true)
+    ? "Show More"
+    : "Show Less";
+
+  if (isLong) {
+    // Truncate the description to 400 characters and add "..."
+    const fullText = des.innerHTML;
+    des.innerHTML = fullText.substring(0, 400) + "...";
+
+    // Add an event listener to toggle the description
+    seeMoreBtn.addEventListener("click", () => {
+      if (seeMoreBtn.innerText === "Show More") {
+        des.innerHTML = fullText; // Show full text
+        seeMoreBtn.innerText = "Show Less";
+      } else {
+        des.innerHTML = fullText.substring(0, 400) + "..."; // Show truncated text
+        seeMoreBtn.innerText = "Show More";
+      }
+    });
+  }
+}
