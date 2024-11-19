@@ -24,13 +24,6 @@ slideWidth = sliders.firstElementChild.offsetWidth; // Initialize on load
 let currentSlide = 1;
 sliders.scrollLeft = slideWidth;
 
-// Auto-slide functionality
-function startAutoSlide() {
-  autoSlideInterval = setInterval(() => {
-    moveToSlide(currentSlide + 1);
-  }, 3000); // Auto-slide every 3 seconds
-}
-
 function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
@@ -93,19 +86,14 @@ function dragEnd() {
   const nearestSlide = Math.round(scrollLeft / slideWidth);
   moveToSlide(nearestSlide);
 
-  startAutoSlide(); // Resume auto-slide
+  // Resume auto-slide
 }
 
 function getPositionX(e) {
   return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
 }
 
-// Hover to pause auto-slide
-sliders.addEventListener("mouseenter", stopAutoSlide);
-sliders.addEventListener("mouseleave", startAutoSlide);
-
 // Start auto-slide on page load
-startAutoSlide();
 
 for (const des of allDescription) {
   const isLong = des.innerHTML.length > 400;
