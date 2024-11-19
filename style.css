@@ -127,7 +127,6 @@
   .slide {
     min-width: 100%;
     width: 100%;
-    height: 400px;
     padding: 20px;
   }
 }
@@ -136,7 +135,6 @@
   .slide {
     min-width: calc(var(--slider-container-width) / 2);
     width: 100%;
-    height: 400px;
     padding: 20px;
   }
 }

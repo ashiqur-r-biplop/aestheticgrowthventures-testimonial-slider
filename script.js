@@ -122,3 +122,22 @@ for (const des of allDescription) {
     });
   }
 }
+
+const nextButton = document.getElementById("next");
+const prevButton = document.getElementById("prev");
+
+// Handle Next button click
+nextButton.addEventListener("click", () => {
+  stopAutoSlide(); // Stop auto-slide when manually navigating
+  if (currentSlide < sliders.childElementCount - 1) {
+    moveToSlide(currentSlide + 1);
+  }
+});
+
+// Handle Prev button click
+prevButton.addEventListener("click", () => {
+  stopAutoSlide(); // Stop auto-slide when manually navigating
+  if (currentSlide > 0) {
+    moveToSlide(currentSlide - 1);
+  }
+});
