@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #000;
+}
+:root {
+  --container-width: 1300px;
+  --slider-container-width: 100%;
+  --text-color: #54595f;
+  --text-black: #000;
+}
+.sliders,
+.sliders * {
+  user-select: none;
+}
+.testimonial-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  font-family: "Montserrat", serif;
+}
+
+.testimonials {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.sliders {
+  display: flex;
+  align-items: start;
+  width: var(--slider-container-width);
+  overflow: hidden;
+  transition: none;
+}
+
+.slide {
+  min-width: calc(var(--slider-container-width) / 3);
+  padding: 10px;
+}
+.slide-inner-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 32px;
+  padding: 40px 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+/* content style */
+.quat {
+  width: 60px;
+  height: 60px;
+}
+.quat img {
+  width: 100%;
+  height: 100%;
+  filter: invert(58%) sepia(67%) saturate(957%) hue-rotate(1deg)
+    brightness(105%) contrast(105%);
+}
+.testimonial-logo {
+  width: 70px;
+  height: 70px;
+}
+.testimonial-logo img {
+  width: 100%;
+  height: 100%;
+}
+.slide-inner-content-box p {
+  font-size: 18px;
+  color: var(--text-color);
+  line-height: 32px;
+}
+.testimonial-logo-ratting-box {
+  font-size: 20px;
+  color: #fea700;
+}
+.testimonial-logo-ratting-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.review_man {
+  text-align: center;
+}
+.review_man h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-black);
+}
+.review_man p {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-color);
+}
+/* content style */
+
+@media screen and (max-width: 520px) {
+  .slide {
+    min-width: 100%;
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 521px) and (max-width: 980px) {
+  .slide {
+    min-width: calc(var(--slider-container-width) / 2);
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+  }
+}
