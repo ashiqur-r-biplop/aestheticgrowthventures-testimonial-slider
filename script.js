@@ -2,14 +2,10 @@ const slider = document.querySelector(".sliders");
 const slides = document.querySelectorAll(".slide");
 const nextButton = document.getElementById("next");
 const prevButton = document.getElementById("prev");
+
 let slideIndex = 0;
 let autoSlideInterval;
-let isDragging = false;
-let startPos = 0;
-let currentTranslate = 0;
-let prevTranslate = 0;
-let animationID;
-let isAutoSliding = true;
+let isAutoSliding = true; // Initially auto sliding is on
 
 // Calculate slide width based on viewport
 const getSlideWidth = () => slides[0].offsetWidth;
@@ -33,6 +29,7 @@ const prevSlide = () => {
 
 // Auto slide
 const startAutoSlide = () => {
+  if (!isAutoSliding) return; // Only run if auto-sliding is enabled
   autoSlideInterval = setInterval(() => {
     if (isAutoSliding) nextSlide();
   }, 3000);
@@ -43,80 +40,89 @@ const stopAutoSlide = () => {
   clearInterval(autoSlideInterval);
 };
 
-// Drag start
-const touchStart = (event) => {
-  isDragging = true;
-  startPos = getPositionX(event);
-  animationID = requestAnimationFrame(animation);
-  slider.classList.add("grabbing");
-  stopAutoSlide();
-};
-
-// Drag move
-const touchMove = (event) => {
-  if (!isDragging) return;
-  const currentPosition = getPositionX(event);
-  currentTranslate = prevTranslate + currentPosition - startPos;
-};
-
-// Drag end
-const touchEnd = () => {
-  cancelAnimationFrame(animationID);
-  isDragging = false;
-  const movedBy = currentTranslate - prevTranslate;
-  if (movedBy < -100 && slideIndex < slides.length - 1) nextSlide();
-  if (movedBy > 100 && slideIndex > 0) prevSlide();
-  slider.classList.remove("grabbing");
-  prevTranslate = -slideIndex * getSlideWidth();
-  updateSlider();
-  if (isAutoSliding) startAutoSlide();
-};
-
-// Get position (mouse or touch)
-const getPositionX = (event) =>
-  event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
-
-// Animation frame for smooth dragging
-const animation = () => {
-  slider.style.transform = `translateX(${currentTranslate}px)`;
-  if (isDragging) requestAnimationFrame(animation);
-};
-
-// Event listeners
-slider.addEventListener("mousedown", touchStart);
-slider.addEventListener("mousemove", touchMove);
-slider.addEventListener("mouseup", touchEnd);
-slider.addEventListener("mouseleave", () => {
-  if (isDragging) touchEnd();
-});
-slider.addEventListener("touchstart", touchStart);
-slider.addEventListener("touchmove", touchMove);
-slider.addEventListener("touchend", touchEnd);
-
-// Buttons
+// Next/Prev button clicks
 nextButton.addEventListener("click", () => {
-  stopAutoSlide();
+  stopAutoSlide(); // Stop auto-slide when button is clicked
   nextSlide();
-  if (isAutoSliding) startAutoSlide();
+  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide after button click
 });
 prevButton.addEventListener("click", () => {
-  stopAutoSlide();
+  stopAutoSlide(); // Stop auto-slide when button is clicked
   prevSlide();
-  if (isAutoSliding) startAutoSlide();
+  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide after button click
 });
 
-// Hover effects
-slider.addEventListener("mouseenter", () => (isAutoSliding = false));
+// Hover effects (slider container)
+slider.addEventListener("mouseenter", () => {
+  isAutoSliding = false; // Stop auto-slide when hovering over the slider
+  stopAutoSlide();
+});
+
 slider.addEventListener("mouseleave", () => {
-  isAutoSliding = true;
+  isAutoSliding = true; // Re-enable auto-slide when mouse leaves the slider
   startAutoSlide();
+});
+
+// Hover effects (Next/Prev buttons)
+nextButton.addEventListener("mouseenter", () => {
+  isAutoSliding = false; // Stop auto-slide when hovering over Next button
+  stopAutoSlide();
+});
+
+prevButton.addEventListener("mouseenter", () => {
+  isAutoSliding = false; // Stop auto-slide when hovering over Prev button
+  stopAutoSlide();
+});
+
+nextButton.addEventListener("mouseleave", () => {
+  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide when leaving Next button
+});
+
+prevButton.addEventListener("mouseleave", () => {
+  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide when leaving Prev button
 });
 
 // Responsive handling
 const handleResize = () => {
-  prevTranslate = -slideIndex * getSlideWidth();
   updateSlider();
 };
+
+const allDesCription = document.querySelectorAll("testimonial-description p");
+const spanBtn = document.getElementsByClassName("see_more_and_see_less_btn");
+
+const allDescriptions = document.querySelectorAll(".testimonial-description p");
+const spanBtns = document.getElementsByClassName("see_more_and_see_less_btn");
+
+allDescriptions.forEach((description, index) => {
+  const fullText = description.innerHTML.trim(); // Store full text
+  const isLong = fullText.length > 400;
+
+  if (isLong) {
+    const truncatedText = fullText.substring(0, 400) + "..."; // Truncate text
+    description.innerHTML = truncatedText; // Set initial truncated text
+
+    // Get the corresponding span button
+    const btn = spanBtns[index];
+
+    // Set the button text
+    btn.innerText = "Show More";
+    btn.style.cursor = "pointer";
+
+    // Add a click event listener to toggle the text
+    btn.addEventListener("click", () => {
+      if (btn.innerText === "Show More") {
+        description.innerHTML = fullText; // Show full text
+        btn.innerText = "Show Less";
+      } else {
+        description.innerHTML = truncatedText; // Show truncated text
+        btn.innerText = "Show More";
+      }
+    });
+  } else {
+    const btn = spanBtns[index];
+    btn.style.display = "none"; // Hide the button if the text is not long
+  }
+});
 
 window.addEventListener("resize", handleResize);
 

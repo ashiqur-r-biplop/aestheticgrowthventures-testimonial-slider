@@ -48,8 +48,11 @@
   font-size: 32px;
   border-radius: 20px;
   display: flex;
+  justify-content: start;
+  align-items: start;
 }
 .slide-inner {
+  width: calc(var(--slider-container-width) / 5);
   border: 1px solid #ddd;
   background-color: white;
   padding: 40px 20px;
