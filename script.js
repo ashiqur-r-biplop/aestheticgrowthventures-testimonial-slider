@@ -133,3 +133,33 @@ window.addEventListener("resize", handleResize);
 // Initialize slider
 updateSlider();
 startAutoSlide();
+
+// video
+// Select all videos and play buttons
+const videoContainers = document.querySelectorAll(".video-box");
+
+videoContainers.forEach((container) => {
+  const video = container.querySelector(".video");
+  const playButton = container.querySelector(".play-button");
+
+  // Play or pause video when the play button is clicked
+  playButton.addEventListener("click", () => {
+    if (video.paused) {
+      video.play();
+      playButton.classList.add("hidden"); // Hide the play button
+    } else {
+      video.pause();
+      playButton.classList.remove("hidden"); // Show the play button
+    }
+  });
+
+  // Show play button when the video is paused
+  video.addEventListener("pause", () => {
+    playButton.classList.remove("hidden");
+  });
+
+  // Hide play button when the video starts playing
+  video.addEventListener("play", () => {
+    playButton.classList.add("hidden");
+  });
+});
