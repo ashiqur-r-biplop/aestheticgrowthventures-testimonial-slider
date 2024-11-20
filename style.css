@@ -134,10 +134,13 @@
   }
   .slide-inner-box {
     width: var(--slider-container-width) / 3;
+    gap: 0;
+    padding: 0;
   }
   .slide {
     width: var(--slider-container-width) / 3;
     width: 100%;
+    padding: 0;
   }
   .next-and-prev-btn {
     width: 95%;

@@ -1,5 +1,9 @@
 const slider = document.querySelector(".sliders");
-const slides = document.querySelectorAll(".slide");
+var w = window.innerWidth;
+console.log(w);
+const slides = document.querySelectorAll(
+  `${w > 520 ? ".slide" : ".slide-inner"} `
+);
 const nextButton = document.getElementById("next");
 const prevButton = document.getElementById("prev");
 
