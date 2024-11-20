@@ -7,7 +7,7 @@
 
 :root {
   --container-width: 1078px;
-  --slider-container-width: 100%;
+  --slider-container-width: 500%;
   --text-color: #54595f;
   --text-black: #000;
 }
@@ -26,36 +26,61 @@
 .testimonials {
   overflow-x: hidden;
   width: 100%;
-  padding: 30px;
 }
 
 .sliders {
   display: flex;
   align-items: start;
   width: var(--slider-container-width);
-  overflow: hidden;
-  transition: none;
+  transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-  min-width: calc(var(--slider-container-width) / 3);
+  width: calc(var(--slider-container-width) / 5);
   padding: 10px;
+  display: flex;
+  border: 1px solid red;
 }
 .slide-inner-box {
   width: 100%;
   height: 100%;
+  font-size: 32px;
+  border-radius: 20px;
+  gap: 15px;
+  display: flex;
+}
+.slide-inner {
+  border: 1px solid #ddd;
+  background-color: white;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  justify-content: start;
+  align-items: start;
+}
+.next-and-prev-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 105%;
+  display: flex;
+  justify-content: space-between;
+}
+.next-and-prev-btn button {
+  background-color: #9ba9b4;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  font-size: 32px;
-  padding: 40px 20px;
-  border-radius: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
+  cursor: pointer;
 }
-
 /* content style */
 .testimonial-top {
   display: flex;
@@ -90,37 +115,7 @@
   font-size: 16px;
   color: #888;
 }
-#btn-see-more {
-  border-bottom: 2px solid gray;
-  cursor: pointer;
-  display: none;
-}
-#btn-see-more:hover {
-  font-weight: 600;
-  border-bottom: 2px solid black;
-}
-.next-and-prev-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.next-and-prev-btn button {
-  background-color: #9ba9b4;
-  color: white;
-  outline: none;
-  border: none;
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
+
 /* content style */
 
 @media screen and (max-width: 520px) {
